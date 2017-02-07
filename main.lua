@@ -1,3 +1,12 @@
+--------------------------------------------------------------------------------------
+-- GBC Data Cabinet Demo
+-- Written by John Schumacher
+-- Copyright 2017 John Schumacher, Games By Candlelight
+-- http://gamesbycandlelight.com
+--
+-- This application demonstrates the use of GBC Data Cabinet, my CoronaSDK plugin.
+-- Feel free to use or modify this code for your benefit.
+--------------------------------------------------------------------------------------
 -- 
 -- Abstract: GBCDataCabinet Library Plugin Test Project
 -- 
@@ -8,56 +17,22 @@
 
 -- Load plugin library
 local GBCDataCabinet = require "plugin.GBCDataCabinet"
+local widget = require "widget"
 
 -------------------------------------------------------------------------------
 -- BEGIN (Insert your sample test starting here)
 -------------------------------------------------------------------------------
+local composer = require( "composer" )
 
-local success = false
-local center = display.contentCenterX
-local top = display.screenOriginY + 30
+display.setStatusBar(display.HiddenStatusBar)
+widget.setTheme("widget_theme_android_holo_light")
 
--- 1. create a cabinet in memory
-success = GBCDataCabinet.createCabinet("My First Cabinet")
-display.newText("First cabinet created: "..tostring(success), center, top + 25, native.systemFont, 14)
-
-success = GBCDataCabinet.set("My First Cabinet", "Date", os.date())
-display.newText("Data added to first cabinet: "..tostring(success), center, top + 50, native.systemFont, 14)
-
--- 2.create another cabinet and save to disk
-success = GBCDataCabinet.createCabinet("My Second Cabinet")
-display.newText("Second Cabinet Created: "..tostring(success), center, top + 75, native.systemFont, 14)
-
-success = GBCDataCabinet.set("My Second Cabinet", "Score", 100)
-display.newText("Data added to second cabinet: "..tostring(success), center, top + 100, native.systemFont, 14)
-
-success = GBCDataCabinet.set("My Second Cabinet", "Other Info", {
-    ["My First Name"] = "First Name",
-    ["My Last Name"] = "Last Name",
-})
-display.newText("Table added to second cabinet: "..tostring(success), center, top + 125, native.systemFont, 14)
-
-success = GBCDataCabinet.save("My Second Cabinet")
-display.newText("Second cabinet saved to disk: "..tostring(success), center, top + 150, native.systemFont, 14)
-
-
--- to test reading data from a persistent cabinet, 
--- comment out the code in steps 1 and 2 and uncomment step 3 and 4 below.
-
--- 3. Recall some saved data
-success = GBCDataCabinet.load("My Second Cabinet")
-display.newText("Second cabinet loaded into memory: "..tostring(success), center, top + 175, native.systemFont, 14)
-
-local value = GBCDataCabinet.get("My Second Cabinet", "Score")
-display.newText("Score: "..value, center, top + 200, native.systemFont, 14)
-
--- 4. Try to recall data from a cabinet not saved to disk
--- This should be "false" since the first cabinet is a memory-only cabinet
-success = GBCDataCabinet.load("My First Cabinet")
-display.newText("First cabinet loaded into memory: "..tostring(success), center, top + 225, native.systemFont, 14)
-if not success then
-    display.newText("Error message: "..GBCDataCabinet.getLastError(), center, top + 250, native.systemFont, 14)
+-- For Zerobrane debugging
+if system.getInfo("environment") == "simulator" then
+    require("mobdebug").start() 
 end
+
+composer.gotoScene("top")
 -------------------------------------------------------------------------------
 -- END
 -------------------------------------------------------------------------------
