@@ -1,6 +1,6 @@
 # About This Repository #
 
-**GBC Data Cabinet** is a free CoronaSDK plugin that allows you to easily save and restore temporary and persistent data without using global variables.
+**GBC Data Cabinet** is a free Solar2D plugin that allows you to easily save and restore temporary and persistent data without using global variables.
 
 This repository contains the sample code that is referenced in the plugin documentation.
 
